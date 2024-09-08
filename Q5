@@ -1,0 +1,26 @@
+def getMaxToys(prices, money):
+    n = len(prices)
+    max_toys = 0
+    current_sum = 0
+    left = 0
+    
+    for right in range(n):
+        current_sum += prices[right]
+        
+        # Shrink the window from the left if the current_sum exceeds the budget
+        while current_sum > money:
+            current_sum -= prices[left]
+            left += 1
+        
+        # Update the maximum number of toys that can be purchased
+        max_toys = max(max_toys, right - left + 1)
+    
+    return max_toys
+
+# Input
+n = int(input().strip())
+prices = list(map(int, input().strip().split()))
+money = int(input().strip())
+
+# Output
+print(getMaxToys(prices, money))
