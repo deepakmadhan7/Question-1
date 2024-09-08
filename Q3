@@ -1,1 +1,52 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SteppingNumbers {
+    
+    // Function to check if a number is a stepping number
+    static boolean isSteppingNumber(int num) {
+        if (num < 10) return true; // Single-digit numbers are stepping numbers by default
+        
+        int prevDigit = -1;
+        while (num > 0) {
+            int currentDigit = num % 10;
+            if (prevDigit != -1 && Math.abs(currentDigit - prevDigit) != 1) {
+                return false;
+            }
+            prevDigit = currentDigit;
+            num /= 10;
+        }
+        return true;
+    }
+    
+    // Function to find all stepping numbers in the range [n, m]
+    static List<Integer> findSteppingNumbers(int n, int m) {
+        List<Integer> result = new ArrayList<>();
+        
+        for (int num = n; num <= m; num++) {
+            if (isSteppingNumber(num)) {
+                result.add(num);
+            }
+        }
+        
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Input range
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        
+        // Find and print all stepping numbers in the range
+        List<Integer> steppingNumbers = findSteppingNumbers(n, m);
+        for (int num : steppingNumbers) {
+            System.out.print(num + " ");
+        }
+        
+        sc.close();
+    }
+}
 
