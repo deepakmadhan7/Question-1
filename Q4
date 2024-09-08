@@ -1,0 +1,28 @@
+def minimize_ticket_price(ticket, k):
+    stack = []
+    
+    # Iterate over each digit in the ticket price
+    for digit in ticket:
+        # While there are digits to remove and the current digit is smaller than the last digit in the stack
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    
+    # If there are still digits left to remove
+    while k > 0:
+        stack.pop()
+        k -= 1
+    
+    # Remove leading zeros and convert list back to string
+    final_price = ''.join(stack).lstrip('0')
+    
+    # If the result is an empty string, return '0' (since we cannot make the price zero)
+    return final_price if final_price else '0'
+
+# Input
+ticket = input().strip()
+k = int(input().strip())
+
+# Output the minimized ticket price
+print(minimize_ticket_price(ticket, k))
